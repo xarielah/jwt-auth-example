@@ -1,0 +1,13 @@
+{
+  "name": "auth-example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:client": "cd ./frontend && npm run dev",
+    "start:server": "cd ./backend && npm run start"
+  },
+  "author": "",
+  "license": "ISC"
+}
