@@ -40,6 +40,8 @@ app.use("/auth", authController);
 
 app.use("/", authenticationToken, icecreamController);
 
+app.get("*", (_, res) => res.send("@xarielah - GitHub.com"));
+
 app.use("*", (_, res) => {
   res.status(404).json({
     statusCode: 404,
