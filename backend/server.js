@@ -9,6 +9,9 @@ const dbService = require("./service/dbService");
 const PORT = process.env.PORT || 5000;
 
 const authController = require("./controllers/authController");
+const icecreamController = require("./controllers/icecreamController");
+const authenticationToken = require("./middleware/authenticationToken");
+const cookieParser = require("cookie-parser");
 
 // Use express JSON middleware
 app.use(bodyParser.json());
@@ -17,10 +20,25 @@ app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Use CORS middleware
-app.use(cors());
+app.use(
+  cors({
+    origin: process.env.FRONT_URL ?? "http://localhost:5173",
+    allowedHeaders: [
+      "Access-Control-Allow-Origin",
+      "Content-Type",
+      "Authorization",
+    ],
+    credentials: true,
+  })
+);
+
+// Use cookie parser
+app.use(cookieParser());
 
 // Controller
 app.use("/auth", authController);
+
+app.use("/", authenticationToken, icecreamController);
 
 app.use("*", (_, res) => {
   res.status(404).json({
