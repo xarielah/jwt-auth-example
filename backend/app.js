@@ -22,7 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 // Use CORS middleware
 app.use(
   cors({
-    origin: process.env.FRONT_URL ?? "http://localhost:5173",
+    origin: process.env.NODE_ENV === 'development' ? 'http://localhost:5173' : process.env.FRONT_URL,
     allowedHeaders: [
       "Access-Control-Allow-Origin",
       "Content-Type",
