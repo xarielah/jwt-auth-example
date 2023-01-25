@@ -32,6 +32,11 @@ app.use(
   })
 );
 
+// Remove these:
+console.log(process.env.NODE_ENV);
+console.log(process.env.FRONT_URL);
+
+
 // Use cookie parser
 app.use(cookieParser());
 
