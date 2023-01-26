@@ -120,13 +120,14 @@ router.get("/refresh", async (req, res) => {
      * This sets a session cookie that will expire when user closes session.
      * Next time the user needs to be authenticated they will get new token by /refresh GET request.
      */
-    res.cookie("token", newAccessToken);
+    res.cookie("token", newAccessToken, {
+      sameSite: 'None',
+      secure: true,
+    });
     return res.status(201).json({
       statusCode: 201,
       message: "Access token created!",
       accessToken: newAccessToken,
-      sameSite: 'None',
-      secure: true,
     });
   } catch (error) {
     console.error(error);
