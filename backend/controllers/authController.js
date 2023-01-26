@@ -3,7 +3,7 @@ const { validationResult, body } = require("express-validator");
 const router = express.Router();
 const authService = require("../service/authService");
 const jwt = require("../service/jwtService");
-require('dotenv').config()
+require("dotenv").config();
 
 router.post(
   "/signup",
@@ -88,7 +88,7 @@ router.post(
       res.cookie("refresh", refreshToken, {
         expires: new Date(new Date().setFullYear(new Date().getFullYear() + 1)),
         httpOnly: true,
-        sameSite: 'None',
+        sameSite: "None",
         secure: true,
       });
       return res.status(200).json({ accessToken, username: username });
@@ -120,10 +120,7 @@ router.get("/refresh", async (req, res) => {
      * This sets a session cookie that will expire when user closes session.
      * Next time the user needs to be authenticated they will get new token by /refresh GET request.
      */
-    res.cookie("token", newAccessToken, {
-      sameSite: 'None',
-      secure: true,
-    });
+
     return res.status(201).json({
       statusCode: 201,
       message: "Access token created!",

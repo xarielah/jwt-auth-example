@@ -22,7 +22,10 @@ app.use(express.urlencoded({ extended: true }));
 // Use CORS middleware
 app.use(
   cors({
-    origin: process.env.NODE_ENV === 'development' ? 'http://localhost:5173' : process.env.FRONT_URL,
+    origin:
+      process.env.NODE_ENV === "development" || !process.env.NODE_ENV
+        ? "http://localhost:5173"
+        : process.env.FRONT_URL,
     allowedHeaders: [
       "Access-Control-Allow-Origin",
       "Content-Type",
@@ -31,11 +34,6 @@ app.use(
     credentials: true,
   })
 );
-
-// Remove these:
-console.log(process.env.NODE_ENV);
-console.log(process.env.FRONT_URL);
-
 
 // Use cookie parser
 app.use(cookieParser());

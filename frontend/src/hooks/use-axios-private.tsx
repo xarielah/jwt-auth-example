@@ -3,6 +3,7 @@ import { axiosPrivate } from "../service/axios.service";
 import useRefreshToken from "./use-refresh-token";
 import { useEffect } from "react";
 import Cookie from "js-cookie";
+import Cookies from "js-cookie";
 
 const onRequest = (config: AxiosRequestConfig): AxiosRequestConfig => {
   const token = Cookie.get("token");
@@ -48,6 +49,7 @@ const useAxiosPrivate = () => {
         if (error.response?.status === 403 && !sent) {
           sent = true;
           const newToken = await refresh();
+          Cookies.set("token", newToken);
 
           previousRequest.headers["Authorization"] = `Bearer ${newToken}`;
           return axiosPrivate(previousRequest!);
