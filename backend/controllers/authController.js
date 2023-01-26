@@ -138,6 +138,8 @@ router.post("/logout", (_, res) => {
   res.cookie("refresh", "", {
     expires: new Date(0),
     httpOnly: true,
+    sameSite: "None",
+    secure: true,
   });
   res
     .status(204)

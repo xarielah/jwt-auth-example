@@ -8,7 +8,7 @@ const dataUtil = require("../data");
  */
 
 router.get("/icecream", (req, res) => {
-  return res.status(200).json(dataUtil.getRandomIceCream());
+  return res.status(200).json(dataUtil.getIceCreamByDay());
 });
 
 module.exports = router;
