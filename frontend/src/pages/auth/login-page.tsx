@@ -11,6 +11,7 @@ import FormFieldError from "../../components/auth/form/form-field-error";
 import AuthLayout from "../../components/layouts/auth-layout";
 import * as yup from "yup";
 import { setUser } from "../../app/authSlice";
+import Cookies from "js-cookie";
 
 type LoginFields = {
   username: string;
@@ -52,6 +53,8 @@ const LoginPage = () => {
           setIsLoading(false);
           resetField("password");
         });
+
+      Cookies.set("token", response.data.accessToken);
 
       dispatch(setUser({ username: response.data.username }));
       setSuccess(true);
