@@ -3,6 +3,7 @@ const { validationResult, body } = require("express-validator");
 const router = express.Router();
 const authService = require("../service/authService");
 const jwt = require("../service/jwtService");
+require('dotenv').config()
 
 router.post(
   "/signup",
@@ -87,7 +88,8 @@ router.post(
       res.cookie("refresh", refreshToken, {
         expires: new Date(new Date().setFullYear(new Date().getFullYear() + 1)),
         httpOnly: true,
-        secure: false, //! True on production
+        sameSite: 'None',
+        secure: true,
       });
       return res.status(200).json({ accessToken, username: username });
     } catch (error) {
@@ -123,6 +125,8 @@ router.get("/refresh", async (req, res) => {
       statusCode: 201,
       message: "Access token created!",
       accessToken: newAccessToken,
+      sameSite: 'None',
+      secure: true,
     });
   } catch (error) {
     console.error(error);
@@ -133,7 +137,7 @@ router.get("/refresh", async (req, res) => {
 });
 
 router.post("/logout", (_, res) => {
-  res.cookie("refresh", "null", {
+  res.cookie("refresh", "", {
     expires: new Date(0),
     httpOnly: true,
   });
