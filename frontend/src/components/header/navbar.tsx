@@ -7,18 +7,27 @@ import { useDispatch } from "react-redux/es/hooks/useDispatch";
 import { Link } from "react-router-dom";
 import Button from "../elements/button";
 import { axiosClient } from "../../service/axios.service";
+import useRefreshToken from "../../hooks/use-refresh-token";
 
 const Navbar = () => {
   const loggedUser = useSelector(selectUser);
   const dispatch = useDispatch();
+  const refresh = useRefreshToken();
+
+  const decodeAndStore = (token: string) => {
+    const payload: { username: string } = jwt(token);
+    dispatch(setUser({ username: payload.username }));
+  };
 
   useEffect(() => {
-    if (!loggedUser) {
-      const token = Cookies.get("token");
-      if (token) {
-        const payload: { username: string } = jwt(token);
-        dispatch(setUser({ username: payload.username }));
-      }
+    if (loggedUser) return;
+
+    const token = Cookies.get("token");
+
+    if (token) {
+      decodeAndStore(token);
+    } else {
+      refresh().then((token) => decodeAndStore(token));
     }
   }, []);
 
