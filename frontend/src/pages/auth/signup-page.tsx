@@ -28,6 +28,11 @@ const schema = yup
 const SignupPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
+  const [submissionErrors, setSubmissionErrors] = useState<string[]>([]);
+  console.log(
+    "🚀 ~ file: signup-page.tsx:32 ~ SignupPage ~ submissionErrors",
+    submissionErrors
+  );
 
   const {
     handleSubmit,
@@ -42,6 +47,7 @@ const SignupPage = () => {
     register("confirmPassword");
 
   const onsubmit = async (data: LoginFields) => {
+    setSubmissionErrors([]);
     setIsLoading(true);
 
     try {
@@ -52,7 +58,19 @@ const SignupPage = () => {
       });
 
       setSuccess(true);
-    } catch (error) {}
+    } catch (error) {
+      if (
+        (error as any).response.data.errors &&
+        (error as any).response.data.errors.length > 0
+      ) {
+        const errorsArray = (error as any).response.data.errors.map(
+          (err: { msg: string }) => err.msg
+        );
+        setSubmissionErrors(errorsArray);
+      } else if ((error as any).response.data.message) {
+        setSubmissionErrors([(error as any).response.data.message]);
+      }
+    }
   };
 
   return (
@@ -65,6 +83,17 @@ const SignupPage = () => {
         <h1 className="text-center font-bold text-slate-800 text-3xl mb-4">
           Registration
         </h1>
+        {submissionErrors.length > 0 ? (
+          <ul className="p-4 border-[1px] border-red-500 rounded-xl mb-5 max-w-sm flex items-center justify-center flex-col space-y-3">
+            {submissionErrors.map((err, i) => (
+              <li key={i} className="text-red-500 font-bold">
+                • {err}.
+              </li>
+            ))}
+          </ul>
+        ) : (
+          ""
+        )}
         {success ? (
           <div className="flex flex-col justify-center text-slate-800 items-center space-y-6 max-w-sm">
             <h1 className="text-3xl font-light">
