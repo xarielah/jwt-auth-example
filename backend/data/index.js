@@ -1,8 +1,9 @@
 const iceCreamList = require("./icecreams");
 
-function getRandomIceCream() {
-  const randomNumber = Math.round(Math.random() * iceCreamList.length - 1);
-  return iceCreamList[randomNumber];
+function getIceCreamByDay() {
+  //! This was refactored to be by day.
+  const today = new Date().getDay();
+  return iceCreamList[today];
 }
 
-module.exports = { getRandomIceCream };
+module.exports = { getIceCreamByDay };

@@ -46,7 +46,7 @@ const IceCreamPage = () => {
   if (isLoading && !todaysIceCream)
     return (
       <section className="font-bold text-2xl italic text-slate-800">
-        Loading...
+        Freezing some cream...
       </section>
     );
   else
@@ -56,10 +56,12 @@ const IceCreamPage = () => {
           src={todaysIceCream?.img}
           className="w-64 h-64 object-cover rounded-full shadow-md"
         />
-        <h1 className="text-5xl font-bold text-slate-800">
+        <h1 className="text-4xl md:text-5xl font-bold text-slate-800">
           {todaysIceCream?.name}
         </h1>
-        <p className="text-3xl font-light">{todaysIceCream?.description}</p>
+        <p className="text-2xl md:text-3xl px-3 font-light">
+          {todaysIceCream?.description}
+        </p>
       </section>
     );
 };

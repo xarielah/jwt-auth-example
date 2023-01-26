@@ -45,16 +45,12 @@ const Navbar = () => {
 
   return (
     <nav className="w-full bg-blue-600/10 font-bold text-slate-900 text-center p-4">
-      <div className="flex space-x-6 items-center justify-center">
+      <div className="flex space-y-3 lg:space-y-0 lg:space-x-6 flex-col lg:flex-row items-center justify-center">
         <Link to="/">
           <Button value={"Go Home!"} className="w-max px-6 text-xl" />
         </Link>
         {loggedUser ? (
           <>
-            <Button
-              value={`Hi there! ${loggedUser}`}
-              className="w-max px-6 text-xl"
-            />
             <Button
               value={`Logout`}
               onClick={logout}

@@ -29,6 +29,18 @@ const iceCreams = [
       "Pistachio is another of my personal favorite flavors of ice cream. Known for its distinctively pale green color, it has a wonderfully nutty flavor derived from finely ground pistachios and almond paste.",
     img: "https://www.willflyforfood.net/wp-content/uploads/2022/05/ice-cream-flavors-pistachio.jpg.webp",
   },
+  {
+    name: "Mango",
+    description:
+      "Strawberry may be the most popular fruit-based flavor in the west, but visit the tropics and you’ll find ice cream made with fruits like coconut, durian, soursop, and mamey.",
+    img: "https://www.willflyforfood.net/wp-content/uploads/2022/05/ice-cream-flavors-mango.jpg.webp",
+  },
+  {
+    name: "Coconut",
+    description:
+      "It’s a heavenly, tropical blend of egg yolks, heavy cream, and sugar enriched with sweetened shreds of coconut, coconut milk, and coconut cream.",
+    img: "https://www.willflyforfood.net/wp-content/uploads/2022/05/ice-cream-flavors-coconut.jpg.webp",
+  },
 ];
 
 module.exports = iceCreams;
